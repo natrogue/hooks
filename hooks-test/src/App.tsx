@@ -13,12 +13,12 @@ import { DonacionesEspecieList, DonacionesEspecieCreate } from './DonacionesEspe
 export const App = () => (
   <Admin layout={Layout} dataProvider={dataProvider}>
     <Resource
-      name="Donaciones en Linea"
+      name="DonacionesLinea"
       list={DonacionesLineaList}
       create={DonacionesLineaCreate}
     />
     <Resource
-      name="Donaciones en Especie"
+      name="DonacionesEspecie"
       list={DonacionesEspecieList}
       create={DonacionesEspecieCreate}
     />
