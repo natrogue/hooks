@@ -8,7 +8,7 @@ const dataProvider: DataProvider = {
     getList: (resource, params) => {
         const url = `${apiUrl}/${resource}`;
         return httpClient(url).then(({ json }) => ({
-            data: json,
+            data: json.map((record: any) => ({ ...record, id: record._id })),  // Mapea _id a id
             total: json.length,
         }));
     },
@@ -16,7 +16,7 @@ const dataProvider: DataProvider = {
     getOne: (resource, params) => {
         const url = `${apiUrl}/${resource}/${params.id}`;
         return httpClient(url).then(({ json }) => ({
-            data: json,
+            data: { ...json, id: json._id },  // Mapea _id a id
         }));
     },
 
@@ -38,15 +38,17 @@ const dataProvider: DataProvider = {
         return httpClient(url, {
             method: 'PUT',
             body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json }));
+        }).then(({ json }) => ({ data: { ...json, id: json._id } }));  // Mapea _id a id
     },
 
     delete: (resource, params) => {
         const url = `${apiUrl}/${resource}/${params.id}`;
         return httpClient(url, {
             method: 'DELETE',
-        }).then(({ json }) => ({ data: json }));
+        }).then(({ json }) => ({ data: { ...json, id: json._id } }));  // Mapea _id a id
     },
+
+    // Métodos no implementados
     getMany: function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },

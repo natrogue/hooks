@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/crmDummy', {
     console.error('Error al conectar a MongoDB', err);
 });
 
-// Definir un esquema de ejemplo para las donaciones en línea
+// Definir el esquema de Mongoose para Donaciones en Línea
 const donacionLineaSchema = new mongoose.Schema({
     donorName: String,
     amount: Number,
@@ -27,9 +27,21 @@ const donacionLineaSchema = new mongoose.Schema({
     section: String,
 });
 
+// Crear el modelo de Mongoose a partir del esquema de Donaciones en Línea
 const DonacionLinea = mongoose.model('DonacionLinea', donacionLineaSchema);
 
-// Definir las rutas para manejar las donaciones en línea
+// Definir el esquema de Mongoose para Donaciones en Especie
+const donacionEspecieSchema = new mongoose.Schema({
+    donorName: String,
+    item: String,
+    donationType: String,
+    comment: String,
+});
+
+// Crear el modelo de Mongoose a partir del esquema de Donaciones en Especie
+const DonacionEspecie = mongoose.model('DonacionEspecie', donacionEspecieSchema);
+
+// Rutas para Donaciones en Línea
 app.get('/donaciones-linea', async (req, res) => {
     try {
         const donaciones = await DonacionLinea.find();
@@ -49,6 +61,27 @@ app.post('/donaciones-linea', async (req, res) => {
     }
 });
 
+// Rutas para Donaciones en Especie
+app.get('/donaciones-especie', async (req, res) => {
+    try {
+        const donaciones = await DonacionEspecie.find();
+        res.json(donaciones);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/donaciones-especie', async (req, res) => {
+    try {
+        const nuevaDonacion = new DonacionEspecie(req.body);
+        await nuevaDonacion.save();
+        res.status(201).json(nuevaDonacion);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+
+// Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
