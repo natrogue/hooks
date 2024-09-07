@@ -9,7 +9,7 @@ const dataProvider: DataProvider = {
         const url = `${apiUrl}/${resource}`;
         return httpClient(url).then(({ json }) => ({
             data: json.map((record: any) => ({ ...record, id: record._id })),  // Mapea _id a id
-            total: json.length,
+            total: json.total,
         }));
     },
 

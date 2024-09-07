@@ -35,4 +35,4 @@ export const DonacionesLineaCreate = () => (
             <TextInput source="section" label="Section" />  {/* Añadido el campo 'Section' */}
         </SimpleForm>
     </Create>
-);
+);      

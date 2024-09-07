@@ -36,7 +36,9 @@ const donacionEspecieSchema = new mongoose.Schema({
     item: String,
     donationType: String,
     comment: String,
-});
+},
+    { collection: 'donacionesespecie' }
+);
 
 // Crear el modelo de Mongoose a partir del esquema de Donaciones en Especie
 const DonacionEspecie = mongoose.model('DonacionEspecie', donacionEspecieSchema);
