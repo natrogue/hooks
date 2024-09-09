@@ -48,7 +48,7 @@ const dataProvider: DataProvider = {
         }).then(({ json }) => ({ data: { ...json, id: json._id } }));  // Mapea _id a id
     },
 
-    // Métodos no implementados
+    // Métodos aún no implementados
     getMany: function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },

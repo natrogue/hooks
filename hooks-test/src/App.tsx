@@ -1,18 +1,15 @@
-import {
-  Admin,
-  Resource,
-  ListGuesser,
-  EditGuesser,
-  ShowGuesser,
-} from "react-admin";
+
+import { Admin, Resource } from "react-admin";
 import { Layout } from "./Layout";
 import dataProvider from "./dataProvider";
 import authProvider from "./authProvider";
 import LoginPage from "./LoginPage";
+import UpdateDonation from "./UpdateDonation";
 import { DonacionesLineaList, DonacionesLineaCreate } from './DonacionesLinea';
 import { DonacionesEspecieList, DonacionesEspecieCreate } from './DonacionesEspecie';
 
 export const App = () => (
+  <div>
   <Admin 
     layout={Layout} 
     dataProvider={dataProvider}
@@ -28,5 +25,7 @@ export const App = () => (
       list={DonacionesEspecieList}
       create={DonacionesEspecieCreate}
     />
+    <UpdateDonation />
   </Admin>
+  </div>
 );

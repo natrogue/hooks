@@ -10,7 +10,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err => console.error('Could not connect to MongoDB', err));
 
 // Function to register a new user
-async function registerUser(email, password) {
+async function registerUser(email, password, role = 'user') {
     try {
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
@@ -25,7 +25,8 @@ async function registerUser(email, password) {
         // Create a new user
         const newUser = new User({
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role
         });
 
         // Save the user to the database
@@ -40,7 +41,8 @@ async function registerUser(email, password) {
 }
 
 // Usage: call the function with the user's email and password
-const email = 'test@example.com';  // Replace with actual email
-const password = 'yourpassword';   // Replace with actual password
+const email = 'natrogue@example.com';  // Replace with actual email
+const password = 'natalia';   // Replace with actual password
+const role = 'admin';              // Replace with 'user' or 'admin'
 
-registerUser(email, password);
+registerUser(email, password, role);

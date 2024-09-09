@@ -1,5 +1,8 @@
+import React from 'react';
 import { useMediaQuery, Theme } from '@mui/material';
-import { List, Datagrid, TextField, SimpleList, Create, TextInput, SimpleForm, SelectInput, required } from 'react-admin';
+import { List, Datagrid, TextField, SimpleList, Create, 
+    TextInput, SimpleForm, SelectInput, required } from 'react-admin';
+import IfCanAccess from 'react-admin';
 
 const donationTypes = [
     { id: 'campaña', name: 'Campaña' },
@@ -18,11 +21,11 @@ export const DonacionesEspecieList = () => {
                 />
             ) : (
                 <Datagrid>
-                    <TextField source="id" label="ID" />  {/* Mapea el id */}
-                    <TextField source="donorName" label="Donor Name" />  {/* Nombre correcto del campo */}
-                    <TextField source="item" label="Item" />  {/* Nombre correcto del campo */}
-                    <TextField source="donationType" label="Donation Type" />  {/* Nombre correcto del campo */}
-                    <TextField source="comment" label="Comment" />  {/* Nombre correcto del campo */}
+                    <TextField source="id" label="ID" />
+                    <TextField source="donorName" label="Donor Name" />
+                    <TextField source="item" label="Item" />
+                    <TextField source="donationType" label="Donation Type" />
+                    <TextField source="comment" label="Comment" />
                 </Datagrid>
             )}
         </List>
@@ -32,10 +35,10 @@ export const DonacionesEspecieList = () => {
 export const DonacionesEspecieCreate = () => (
     <Create>
         <SimpleForm>
-            <TextInput source="donorName" label="Donor Name" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <TextInput source="item" label="Item" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <SelectInput source="donationType" label="Donation Type" choices={donationTypes} />  {/* Nombre correcto del campo */}
-            <TextInput source="comment" label="Comment" />  {/* Nombre correcto del campo */}
+            <TextInput source="donorName" label="Donor Name" validate={[required()]} />
+            <TextInput source="item" label="Item" validate={[required()]} />
+            <SelectInput source="donationType" label="Donation Type" choices={donationTypes} />
+            <TextInput source="comment" label="Comment" />
         </SimpleForm>
     </Create>
 );
