@@ -22,10 +22,10 @@ export const DonacionesEspecieList = () => {
             ) : (
                 <Datagrid>
                     <TextField source="id" label="ID" />
-                    <TextField source="donorName" label="Donor Name" />
-                    <TextField source="item" label="Item" />
-                    <TextField source="donationType" label="Donation Type" />
-                    <TextField source="comment" label="Comment" />
+                    <TextField source="donorName" label="Nombre de Donante" />
+                    <TextField source="item" label="Artículo Donado" />
+                    <TextField source="donationType" label="Tipo de Donación" />
+                    <TextField source="comment" label="Comentario" />
                 </Datagrid>
             )}
         </List>
@@ -35,10 +35,10 @@ export const DonacionesEspecieList = () => {
 export const DonacionesEspecieCreate = () => (
     <Create>
         <SimpleForm>
-            <TextInput source="donorName" label="Donor Name" validate={[required()]} />
-            <TextInput source="item" label="Item" validate={[required()]} />
-            <SelectInput source="donationType" label="Donation Type" choices={donationTypes} />
-            <TextInput source="comment" label="Comment" />
+        <TextInput source="donorName" label="Nombre del Donante" validate={[required()]} />
+            <TextInput source="item" label="Artículo Donado" validate={[required()]} />
+            <SelectInput source="donationType" label="Tipo de Donación" choices={donationTypes} />
+            <TextInput source="comment" label="Comentario" />
         </SimpleForm>
     </Create>
 );

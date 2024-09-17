@@ -14,11 +14,11 @@ export const DonacionesLineaList = () => {
                 />
             ) : (
                 <Datagrid>
-                    <TextField source="id" label="ID" />  {/* Mapea el id desde _id */}
-                    <TextField source="donorName" label="Donor Name" />  {/* Nombre correcto del campo */}
-                    <TextField source="amount" label="Amount" />  {/* Nombre correcto del campo */}
-                    <TextField source="date" label="Date" />  {/* Nombre correcto del campo */}
-                    <TextField source="section" label="Section" />  {/* Nombre correcto del campo */}
+                  <TextField source="id" label="ID" />  {/* Mapea el id desde _id */}
+                    <TextField source="donorName" label="Nombre del Donante" />  {/* Nombre correcto del campo */}
+                    <TextField source="amount" label="Monto" />  {/* Nombre correcto del campo */}
+                    <TextField source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+                    <TextField source="section" label="Sección" />  {/* Nombre correcto del campo */}
                 </Datagrid>
             )}
         </List>
@@ -29,10 +29,10 @@ export const DonacionesLineaList = () => {
 export const DonacionesLineaCreate = () => (
     <Create>
         <SimpleForm>
-            <TextInput source="donorName" label="Donor Name" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <NumberInput source="amount" label="Amount" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <TextInput source="date" label="Date" />  {/* Nombre correcto del campo */}
-            <TextInput source="section" label="Section" />  {/* Añadido el campo 'Section' */}
+        <TextInput source="donorName" label="Nombre del Donante" validate={[required()]} />  {/* Nombre correcto del campo */}
+            <NumberInput source="amount" label="Monto" validate={[required()]} />  {/* Nombre correcto del campo */}
+            <TextInput source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+            <TextInput source="section" label="Sección" />  {/* Añadido el campo 'Sección' */}
         </SimpleForm>
     </Create>
 );      

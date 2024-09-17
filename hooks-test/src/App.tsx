@@ -7,6 +7,7 @@ import LoginPage from "./LoginPage";
 import UpdateDonation from "./UpdateDonation";
 import { DonacionesLineaList, DonacionesLineaCreate } from './DonacionesLinea';
 import { DonacionesEspecieList, DonacionesEspecieCreate } from './DonacionesEspecie';
+import { i18nProvider } from "./i18nProvider"
 
 export const App = () => (
   <div>
