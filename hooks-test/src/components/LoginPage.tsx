@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useLogin, useNotify } from 'react-admin';
 import { TextField, Button, Container, Typography, Box, Paper, Grid, Avatar, CircularProgress } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     const login = useLogin();
     const notify = useNotify();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -15,6 +17,18 @@ const LoginPage = () => {
         setLoading(true);
         try {
             await login({ email, password });
+
+            const auth = JSON.parse(localStorage.getItem('auth') || '{}');
+            const userRole = auth.role;
+
+            if (userRole === 'admin') {
+                navigate('/admin-dashboard');
+            } else if (userRole === 'user') {
+                navigate('/user-dashboard');
+            } else {
+                navigate('/');
+            }
+
             setLoading(false);
         } catch (error) {
             notify('Invalid email or password');

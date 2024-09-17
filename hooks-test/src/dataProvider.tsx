@@ -2,13 +2,24 @@ import { fetchUtils, DataProvider, CreateResult, RaRecord, Identifier, DeleteMan
 import { stringify } from 'query-string';
 
 const apiUrl = 'http://localhost:4000';  // URL del backend
-const httpClient = fetchUtils.fetchJson;
+
+// Cliente HTTP personalizado que añade el token a las solicitudes
+const httpClient = (url: string, options: any = {}) => {
+    const token = localStorage.getItem('token');  // Obtener el token desde el localStorage
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    if (token) {
+        options.headers.set('Authorization', `Bearer ${token}`);  // Añadir el token a los headers
+    }
+    return fetchUtils.fetchJson(url, options);
+};
 
 const dataProvider: DataProvider = {
     getList: (resource, params) => {
         const url = `${apiUrl}/${resource}`;
         return httpClient(url).then(({ json }) => ({
-            data: json.map((record: any) => ({ ...record, id: record._id })),  // Mapea _id a id
+            data: json.data.map((record: any) => ({ ...record, id: record._id })),  // Mapea _id a id
             total: json.total,
         }));
     },
