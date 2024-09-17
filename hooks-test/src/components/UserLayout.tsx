@@ -1,12 +1,9 @@
-// UserLayout.tsx
-import { Layout as RaLayout, AppBar as RaAppBar } from 'react-admin';  // Usamos el AppBar y Layout predeterminados de react-admin
+import * as React from 'react';
+import { Layout as RaLayout } from 'react-admin';  // Usa el Layout base de react-admin
 
-const UserLayout = (props: any) => (
-    <RaLayout
-        {...props}
-        appBar={RaAppBar}  // Usamos el AppBar predeterminado
-        menu={null}  // Esto oculta el menú lateral para los usuarios
-    />
-);
+const UserLayout = (props: any) => {
+  // Personaliza el Layout para usuarios, sin la barra lateral, por ejemplo.
+  return <RaLayout {...props} menu={null} />; // Ocultamos el menú en el layout del usuario
+};
 
 export default UserLayout;

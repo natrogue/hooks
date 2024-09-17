@@ -1,50 +1,47 @@
 import * as React from 'react';
-import { Admin, Resource, CustomRoutes, Layout as RaLayout } from 'react-admin';  
+import { Admin, Resource, CustomRoutes } from 'react-admin'; 
 import authProvider from './authProvider';
 import dataProvider from './dataProvider';
 import Dashboard from './components/Dashboard';
 import LoginPage from './components/LoginPage';
-import AdminDashboard from './pages/AdminDashboard';
-import UserDashboard from './pages/UserDashboard';
-import { Route } from 'react-router-dom';         
+import AdminDashboard from './pages/AdminDashboard';  
+import UserDashboard from './pages/UserDashboard';    
+import { Route } from 'react-router-dom';             
 import { DonacionesLineaList, DonacionesLineaCreate } from './DonacionesLinea';
 import { DonacionesEspecieList, DonacionesEspecieCreate } from './DonacionesEspecie';
-import UserLayout from './components/UserLayout';  // Importar UserLayout para el rol de usuario
 
 const App = () => {
-  // Obtén el rol del usuario almacenado
-  const role = localStorage.getItem('role') || 'user';  // 'user' como valor predeterminado
+  const role = localStorage.getItem('role');  // Obtener el rol del usuario
 
   return (
-      <Admin
-          authProvider={authProvider}
-          dataProvider={dataProvider}
-          dashboard={Dashboard}  
-          loginPage={LoginPage}
-          layout={role === 'admin' ? RaLayout : UserLayout} // Layout de admin o user
-      >
-          {/* Rutas personalizadas */}
-          <CustomRoutes>
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />  
-              <Route path="/user-dashboard" element={<UserDashboard />} />    
-          </CustomRoutes>
+    <Admin
+      authProvider={authProvider}
+      dataProvider={dataProvider}
+      dashboard={Dashboard}  // Usar Dashboard para manejar la redirección
+      loginPage={LoginPage}  // Página de login
+    >
+      <CustomRoutes>
+        {/* Rutas personalizadas para admin y user */}
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />  
+        <Route path="/user-dashboard" element={<UserDashboard />} />    
+      </CustomRoutes>
 
-          {/* Recursos del CRM solo para admin */}
-          {role === 'admin' && (
-              <>
-                  <Resource 
-                      name="donaciones-linea"
-                      list={DonacionesLineaList}
-                      create={DonacionesLineaCreate}
-                  />
-                  <Resource 
-                      name="donaciones-especie"
-                      list={DonacionesEspecieList}
-                      create={DonacionesEspecieCreate}
-                  />
-              </>
-          )}
-      </Admin>
+      {/* Recursos del CRM solo para admin */}
+      {role === 'admin' && (
+        <>
+          <Resource 
+            name="donaciones-linea"
+            list={DonacionesLineaList}
+            create={DonacionesLineaCreate}
+          />
+          <Resource 
+            name="donaciones-especie"
+            list={DonacionesEspecieList}
+            create={DonacionesEspecieCreate}
+          />
+        </>
+      )}
+    </Admin>
   );
 };
 
