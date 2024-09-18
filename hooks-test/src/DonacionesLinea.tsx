@@ -15,10 +15,10 @@ export const DonacionesLineaList = () => {
             ) : (
                 <Datagrid>
                     <TextField source="id" label="ID" />  {/* Mapea el id desde _id */}
-                    <TextField source="donorName" label="Donor Name" />  {/* Nombre correcto del campo */}
-                    <TextField source="amount" label="Amount" />  {/* Nombre correcto del campo */}
-                    <TextField source="date" label="Date" />  {/* Nombre correcto del campo */}
-                    <TextField source="section" label="Section" />  {/* Nombre correcto del campo */}
+                    <TextField source="donorName" label="Nombre" />  {/* Nombre correcto del campo */}
+                    <TextField source="amount" label="Cantidad" />  {/* Nombre correcto del campo */}
+                    <TextField source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+                    <TextField source="section" label="Sección" />  {/* Nombre correcto del campo */}
                 </Datagrid>
             )}
         </List>
