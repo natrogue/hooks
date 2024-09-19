@@ -223,27 +223,16 @@ app.get('/user-donations', authenticateToken, verifyRole('user'), async (req, re
     }
 });
 
-/* 
 // Ruta para crear donaciones (solo user)
 app.post('/user-donations', authenticateToken, verifyRole('user'), async (req, res) => {
     try {
         const nuevaDonacion = new DonacionLinea({
-            donorName: req.body.donorName,
+            donorName: req.body.donorName, // Nombre ingresado por el usuario en el frontend
+            email: req.user.email, // Correo extraído del JWT
             amount: req.body.amount,
-            date: new Date(req.body.date),
-            section: req.body.section
+            date: new Date().toISOString(),
+            section: req.body.section || 'general' // Añadir una sección si es necesario
         });
-        await nuevaDonacion.save();
-        res.status(201).json(nuevaDonacion);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-});
-*/
-
-app.post('/user-donations', authenticateToken, verifyRole('user'), async (req, res) => {
-    try {
-        const nuevaDonacion = new DonacionLinea(req.body);
         await nuevaDonacion.save();
         res.status(201).json(nuevaDonacion);
     } catch (err) {

@@ -35,7 +35,6 @@ const UserDashboard = () => {
             setAmount('');
         } catch (error) {
             notify('Error al crear la donación', { type: 'error' });
-            console.error('Error:', error);
         } finally {
             setLoading(false); // Habilitar el botón después de la operación
         }
