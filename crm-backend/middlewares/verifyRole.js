@@ -7,7 +7,7 @@ const verifyRole = (requiredRole) => (req, res, next) => {
     if (!token) return res.status(401).json({ error: 'Acceso denegado' });
 
     try {
-        const verified = jwt.verify(token, 'your_jwt_secret_key');  // Verificar el token
+        const verified = jwt.verify(token, 'mysecretkey');  // Verificar el token
         req.user = verified;
 
         // Verificar si el usuario tiene el rol necesario

@@ -62,6 +62,7 @@ app.get('/protected-data', authenticateToken, (req, res) => {
 // JWT auth middleware
 function authenticateToken(req, res, next) {
     const token = req.header('Authorization')?.split(' ')[1];
+    console.log('Headers:', req.headers);
 
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' });
@@ -73,6 +74,7 @@ function authenticateToken(req, res, next) {
         next();
     }
     catch (error) {
+        console.error('Error verificando el token:', error);
         res.status(400).json({ error: 'Invalid token' });
     }
 }
@@ -90,13 +92,11 @@ const DonacionLinea = mongoose.model('DonacionLinea', donacionLineaSchema);
 
 // Definir el esquema de Mongoose para Donaciones en Especie
 const donacionEspecieSchema = new mongoose.Schema({
-    donorName: String,
-    item: String,
-    donationType: String,
-    comment: String,
-},
-    { collection: 'donacionesespecie' }
-);
+    donorName: { type: String, required: true },  // Nombre del donante
+    amount: { type: Number, required: true },  // Cantidad donada
+    date: { type: String, required: true },  // Fecha de la donación
+    event: { type: String, required: true },  // Evento asociado a la donación
+}, { collection: 'donacionesespecie' });
 
 // Crear el modelo de Mongoose a partir del esquema de Donaciones en Especie
 const DonacionEspecie = mongoose.model('DonacionEspecie', donacionEspecieSchema);
@@ -138,11 +138,19 @@ app.get('/donaciones-especie', async (req, res) => {
 });
 
 app.post('/donaciones-especie', authenticateToken, verifyRole('admin'), async (req, res) => {
+    console.log(req.body);
     try {
-        const nuevaDonacion = new DonacionEspecie(req.body);
+        const nuevaDonacion = new DonacionEspecie({
+            donorName: req.body.donorName,
+            amount: req.body.amount,
+            date: req.body.date,
+            event: req.body.event
+        });
+
         await nuevaDonacion.save();
         res.status(201).json(nuevaDonacion);
     } catch (err) {
+        console.error('Error al crear la donación:', err);
         res.status(400).json({ error: err.message });
     }
 });
