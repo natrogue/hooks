@@ -44,6 +44,12 @@ const App = () => {
           />
         </>
       )}
+      {role === 'user' && (
+      <>
+        {/* Aquí puedes agregar recursos o componentes que sólo quieras que vean los usuarios */}
+        <Route path="/user-dashboard" element={<UserDashboard />} />    
+      </>
+    )}
     </Admin>
   );
 };
