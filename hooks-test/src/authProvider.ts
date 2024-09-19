@@ -1,7 +1,7 @@
 const authProvider = {
     // Called when the user attempts to log in
     login: async ({ email, password }: { email: string, password: string }) => {
-        const request = new Request('http://localhost:4000/login', {
+        const request = new Request('https://localhost:4000/login', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),

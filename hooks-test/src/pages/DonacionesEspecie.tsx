@@ -1,7 +1,8 @@
 import React from 'react';
 import { useMediaQuery, Theme } from '@mui/material';
 import { Edit, List, Datagrid, TextField, SimpleList, Create, 
-    TextInput, SimpleForm, NumberInput, required, DateInput } from 'react-admin';
+    TextInput, SimpleForm, NumberInput, required, DateInput, DateField,
+    NumberField } from 'react-admin';
 
 export const DonacionesEspecieList = () => {
     const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
@@ -17,8 +18,8 @@ export const DonacionesEspecieList = () => {
                 <Datagrid>
                     <TextField source="id" label="ID" />
                     <TextField source="donorName" label="Nombre" />
-                    <TextField source="amount" label="Cantidad" />
-                    <TextField source="date" label="Fecha" />
+                    <NumberField source="amount" label="Cantidad" />
+                    <DateField source="date" label="Fecha" />
                     <TextField source="event" label="Evento" /> {/* Changed 'event' instead of 'section' */}
                 </Datagrid>
             )}
@@ -42,7 +43,7 @@ export const DonacionesEspecieEdit = () => (
         <SimpleForm>
             <TextInput source="donorName" label="Nombre" validate={[required()]} />
             <NumberInput source="amount" label="Cantidad" validate={[required()]} />
-            <TextInput source="date" label="Fecha" validate={[required()]} />
+            <DateInput source="date" label="Fecha" validate={[required()]} />
             <TextInput source="event" label="Evento" validate={[required()]} />
         </SimpleForm>
     </Edit>
