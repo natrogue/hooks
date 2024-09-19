@@ -36,6 +36,7 @@ const dataProvider: DataProvider = {
         params: { data: RecordType; }
     ): Promise<CreateResult<ResultRecordType>> => {
         const url = `${apiUrl}/${resource}`;
+        
         return httpClient(url, {
             method: 'POST',
             body: JSON.stringify(params.data),
