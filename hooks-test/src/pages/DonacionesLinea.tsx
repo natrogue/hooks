@@ -1,6 +1,6 @@
 import { useMediaQuery, Theme } from '@mui/material';
 import { List, Datagrid, TextField, SimpleList, Create, TextInput, SimpleForm, 
-    NumberInput, required, Edit } from 'react-admin';
+    NumberInput, NumberField, required, Edit, DateField, DateInput } from 'react-admin';
 
 // Componente para listar donaciones en línea
 export const DonacionesLineaList = () => {
@@ -17,8 +17,8 @@ export const DonacionesLineaList = () => {
                 <Datagrid>
                     <TextField source="id" label="ID" />  {/* Mapea el id desde _id */}
                     <TextField source="donorName" label="Nombre" />  {/* Nombre correcto del campo */}
-                    <TextField source="amount" label="Cantidad" />  {/* Nombre correcto del campo */}
-                    <TextField source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+                    <NumberField source="amount" label="Cantidad" />  {/* Nombre correcto del campo */}
+                    <DateField source="date" label="Fecha" />  {/* Nombre correcto del campo */}
                     <TextField source="section" label="Sección" />  {/* Nombre correcto del campo */}
                 </Datagrid>
             )}
@@ -32,7 +32,7 @@ export const DonacionesLineaCreate = () => (
         <SimpleForm>
             <TextInput source="donorName" label="Nombre" validate={[required()]} />  {/* Nombre correcto del campo */}
             <NumberInput source="amount" label="Cantidad" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <TextInput source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+            <DateInput source="date" label="Fecha" />  {/* Nombre correcto del campo */}
             <TextInput source="section" label="Sección" />  {/* Añadido el campo 'Section' */}
         </SimpleForm>
     </Create>
@@ -44,7 +44,7 @@ export const DonacionesLineaEdit = () => (
         <SimpleForm>
             <TextInput source="donorName" label="Nombre" validate={[required()]} />  {/* Nombre correcto del campo */}
             <NumberInput source="amount" label="Cantidad" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <TextInput source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+            <DateInput source="date" label="Fecha" />  {/* Nombre correcto del campo */}
             <TextInput source="section" label="Sección" />  {/* Añadido el campo 'Section' */}
         </SimpleForm>
     </Edit>

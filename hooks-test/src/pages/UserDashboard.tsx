@@ -23,9 +23,9 @@ const UserDashboard = () => {
         try {
             setLoading(true); // Deshabilitar el botón mientras se realiza la operación
 
-            // Crear una nueva donación en la base de datos usando el recurso 'donaciones-linea'
-            await dataProvider.create('donaciones-linea', {
-                data: { donorName, amount: Number(amount), date: new Date().toISOString().split('T')[0], section: 'A' } 
+            // Crear una nueva donación en la base de datos usando el recurso 'user-donations'
+            await dataProvider.create('user-donations', {
+                data: { donorName, amount: Number(amount), date: new Date().toISOString().split('T')[0] } 
             });
 
             notify('Donación creada exitosamente', { type: 'success' });

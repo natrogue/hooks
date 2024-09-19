@@ -1,3 +1,6 @@
+const https = require('https'); // Para crear un servidor HTTPS
+const fs = require('fs'); // Maneja archivos del sistema
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -16,7 +19,14 @@ const app = express();
 const PORT = 4000;
 
 // Middlewares
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+    origin: 'https://localhost:5173',
+    exposedHeaders: ['X-Total-Count'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(express.json());
 
 // Conectar a la base de datos MongoDB
@@ -81,10 +91,10 @@ function authenticateToken(req, res, next) {
 
 // Definir el esquema de Mongoose para Donaciones en Línea
 const donacionLineaSchema = new mongoose.Schema({
-    donorName: String,
-    amount: Number,
-    date: String,
-    section: String,
+    donorName: { type: String, required: true },
+    amount: { type: Number, required: true },
+    date: { type: Date, required: true },
+    section: { type: String, required: true }
 });
 
 // Crear el modelo de Mongoose a partir del esquema de Donaciones en Línea
@@ -92,10 +102,10 @@ const DonacionLinea = mongoose.model('DonacionLinea', donacionLineaSchema);
 
 // Definir el esquema de Mongoose para Donaciones en Especie
 const donacionEspecieSchema = new mongoose.Schema({
-    donorName: { type: String, required: true },  // Nombre del donante
-    amount: { type: Number, required: true },  // Cantidad donada
-    date: { type: String, required: true },  // Fecha de la donación
-    event: { type: String, required: true },  // Evento asociado a la donación
+    donorName: { type: String, required: true },
+    amount: { type: Number, required: true },
+    date: { type: Date, required: true },
+    event: { type: String, required: true }
 }, { collection: 'donacionesespecie' });
 
 // Crear el modelo de Mongoose a partir del esquema de Donaciones en Especie
@@ -217,9 +227,9 @@ app.get('/user-donations', authenticateToken, verifyRole('user'), async (req, re
 app.post('/user-donations', authenticateToken, verifyRole('user'), async (req, res) => {
     try {
         const nuevaDonacion = new DonacionLinea({
-            donorName: req.user.email, // Obtener el nombre del usuario logueado
+            donorName: req.body.donorName,
             amount: req.body.amount,
-            date: new Date().toISOString(),
+            date: new Date(req.body.date),
             section: req.body.section
         });
         await nuevaDonacion.save();
@@ -229,7 +239,23 @@ app.post('/user-donations', authenticateToken, verifyRole('user'), async (req, r
     }
 });
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// Ruta para probar el backend en el navegador
+app.get('/', (req, res) => {
+    res.send('Hello World - TC2007B!'); // Mensaje que se verá en la ventana del navegador
 });
+
+// Leer certificados SSL
+const privateKey = fs.readFileSync('../certs/server.key', 'utf8');
+const certificate = fs.readFileSync('../certs/server.crt', 'utf8');
+const ca = fs.readFileSync('../certs/ca/ca.crt', 'utf8');
+const credentials = { key: privateKey, cert: certificate, ca: ca };
+
+// Iniciar el servidor
+//app.listen(PORT, () => {
+//    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+//});
+
+//Servidor HTTPS
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(PORT, () => console.log(`Server running on port ${PORT} with HTTPS`));
+
