@@ -114,6 +114,18 @@ app.get('/donaciones-linea', async (req, res) => {
     }
 });
 
+app.get('/donaciones-linea/:id', async (req, res) => {
+    try {
+        const donacion = await DonacionLinea.findById(req.params.id);
+        if (!donacion) {
+            return res.status(404).json({ error: 'Donación no encontrada' });
+        }
+        res.json(donacion);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.post('/donaciones-linea', authenticateToken, verifyRole('admin'), async (req, res) => {
     try {
         const nuevaDonacion = new DonacionLinea(req.body);
@@ -137,6 +149,19 @@ app.get('/donaciones-especie', async (req, res) => {
     }
 });
 
+// Ruta para obtener una donación específica de especie
+app.get('/donaciones-especie/:id', async (req, res) => {
+    try {
+        const donacion = await DonacionEspecie.findById(req.params.id);
+        if (!donacion) {
+            return res.status(404).json({ error: 'Donación no encontrada' });
+        }
+        res.json(donacion);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.post('/donaciones-especie', authenticateToken, verifyRole('admin'), async (req, res) => {
     console.log(req.body);
     try {
@@ -151,6 +176,29 @@ app.post('/donaciones-especie', authenticateToken, verifyRole('admin'), async (r
         res.status(201).json(nuevaDonacion);
     } catch (err) {
         console.error('Error al crear la donación:', err);
+        res.status(400).json({ error: err.message });
+    }
+});
+
+app.put('/donaciones-especie/:id', authenticateToken, verifyRole('admin'), async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { donorName, amount, date, event } = req.body;
+
+        // Actualiza la donación con los nuevos valores
+        const updatedDonacion = await DonacionEspecie.findByIdAndUpdate(id, {
+            donorName,
+            amount,
+            date,
+            event
+        }, { new: true });
+
+        if (!updatedDonacion) {
+            return res.status(404).json({ error: 'Donación no encontrada' });
+        }
+
+        res.status(200).json(updatedDonacion);
+    } catch (err) {
         res.status(400).json({ error: err.message });
     }
 });

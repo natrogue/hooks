@@ -1,5 +1,6 @@
 import { useMediaQuery, Theme } from '@mui/material';
-import { List, Datagrid, TextField, SimpleList, Create, TextInput, SimpleForm, NumberInput, required } from 'react-admin';
+import { List, Datagrid, TextField, SimpleList, Create, TextInput, SimpleForm, 
+    NumberInput, required, Edit } from 'react-admin';
 
 // Componente para listar donaciones en línea
 export const DonacionesLineaList = () => {
@@ -29,10 +30,22 @@ export const DonacionesLineaList = () => {
 export const DonacionesLineaCreate = () => (
     <Create>
         <SimpleForm>
-            <TextInput source="donorName" label="Donor Name" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <NumberInput source="amount" label="Amount" validate={[required()]} />  {/* Nombre correcto del campo */}
-            <TextInput source="date" label="Date" />  {/* Nombre correcto del campo */}
-            <TextInput source="section" label="Section" />  {/* Añadido el campo 'Section' */}
+            <TextInput source="donorName" label="Nombre" validate={[required()]} />  {/* Nombre correcto del campo */}
+            <NumberInput source="amount" label="Cantidad" validate={[required()]} />  {/* Nombre correcto del campo */}
+            <TextInput source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+            <TextInput source="section" label="Sección" />  {/* Añadido el campo 'Section' */}
         </SimpleForm>
     </Create>
-);      
+);
+
+// Componente para editar una donación en línea
+export const DonacionesLineaEdit = () => (
+    <Edit>
+        <SimpleForm>
+            <TextInput source="donorName" label="Nombre" validate={[required()]} />  {/* Nombre correcto del campo */}
+            <NumberInput source="amount" label="Cantidad" validate={[required()]} />  {/* Nombre correcto del campo */}
+            <TextInput source="date" label="Fecha" />  {/* Nombre correcto del campo */}
+            <TextInput source="section" label="Sección" />  {/* Añadido el campo 'Section' */}
+        </SimpleForm>
+    </Edit>
+);

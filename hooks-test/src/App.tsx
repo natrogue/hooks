@@ -7,8 +7,9 @@ import LoginPage from './components/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';  
 import UserDashboard from './pages/UserDashboard';    
 import { Route } from 'react-router-dom';             
-import { DonacionesLineaList, DonacionesLineaCreate } from './DonacionesLinea';
-import { DonacionesEspecieList, DonacionesEspecieCreate } from './DonacionesEspecie';
+import { DonacionesLineaList, DonacionesLineaCreate, DonacionesLineaEdit } from './DonacionesLinea';
+import { DonacionesEspecieList, DonacionesEspecieCreate,
+  DonacionesEspecieEdit } from './DonacionesEspecie';
 
 const App = () => {
   const role = localStorage.getItem('role');  // Obtener el rol del usuario
@@ -32,12 +33,14 @@ const App = () => {
           <Resource 
             name="donaciones-linea"
             list={DonacionesLineaList}
-            create={DonacionesLineaCreate}
+            //create={DonacionesLineaCreate}
+            edit={DonacionesLineaEdit}
           />
           <Resource 
             name="donaciones-especie"
             list={DonacionesEspecieList}
             create={DonacionesEspecieCreate}
+            edit={DonacionesEspecieEdit}
           />
         </>
       )}
