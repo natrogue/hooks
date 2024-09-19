@@ -223,6 +223,7 @@ app.get('/user-donations', authenticateToken, verifyRole('user'), async (req, re
     }
 });
 
+/* 
 // Ruta para crear donaciones (solo user)
 app.post('/user-donations', authenticateToken, verifyRole('user'), async (req, res) => {
     try {
@@ -232,6 +233,17 @@ app.post('/user-donations', authenticateToken, verifyRole('user'), async (req, r
             date: new Date(req.body.date),
             section: req.body.section
         });
+        await nuevaDonacion.save();
+        res.status(201).json(nuevaDonacion);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+*/
+
+app.post('/user-donations', authenticateToken, verifyRole('user'), async (req, res) => {
+    try {
+        const nuevaDonacion = new DonacionLinea(req.body);
         await nuevaDonacion.save();
         res.status(201).json(nuevaDonacion);
     } catch (err) {
