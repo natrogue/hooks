@@ -7,9 +7,9 @@ import LoginPage from './components/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';  
 import UserDashboard from './pages/UserDashboard';    
 import { Route } from 'react-router-dom';             
-import { DonacionesLineaList, DonacionesLineaCreate, DonacionesLineaEdit } from './DonacionesLinea';
+import { DonacionesLineaList, DonacionesLineaCreate, DonacionesLineaEdit } from './pages/DonacionesLinea';
 import { DonacionesEspecieList, DonacionesEspecieCreate,
-  DonacionesEspecieEdit } from './DonacionesEspecie';
+  DonacionesEspecieEdit } from './pages/DonacionesEspecie';
 
 const App = () => {
   const role = localStorage.getItem('role');  // Obtener el rol del usuario
