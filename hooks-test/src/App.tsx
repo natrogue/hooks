@@ -10,6 +10,7 @@ import { Route } from 'react-router-dom';
 import { DonacionesLineaList, DonacionesLineaCreate, DonacionesLineaEdit } from './pages/DonacionesLinea';
 import { DonacionesEspecieList, DonacionesEspecieCreate,
   DonacionesEspecieEdit } from './pages/DonacionesEspecie';
+import EstadisticasDonaciones from './pages/EstadisticasDonaciones';
 
 const App = () => {
   const [role, setRole] = React.useState<string | null>(null);
@@ -52,6 +53,10 @@ const App = () => {
             list={DonacionesEspecieList}
             create={DonacionesEspecieCreate}
             edit={DonacionesEspecieEdit}
+          />
+          <Resource 
+            name="estadisticas-donaciones"
+            list={EstadisticasDonaciones}
           />
         </>
       )}
