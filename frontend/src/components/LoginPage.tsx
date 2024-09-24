@@ -45,7 +45,7 @@ const LoginPage = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5" gutterBottom>
-                        Entrar
+                        Fundación Sanders
                     </Typography>
                     <Box component="form" onSubmit={submit} sx={{ mt: 1 }}>
                         <TextField
