@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLogin, useNotify } from 'react-admin';
-import { TextField, Button, Container, Typography, Box, Paper, Grid, Avatar, CircularProgress } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Paper, Grid, Avatar, 
+    CircularProgress } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +32,7 @@ const LoginPage = () => {
 
             setLoading(false);
         } catch (error) {
-            notify('Invalid email or password');
+            notify('Email o password incorrecto');
             setLoading(false);
         }
     };
@@ -44,14 +45,14 @@ const LoginPage = () => {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5" gutterBottom>
-                        Sign in
+                        Entrar
                     </Typography>
                     <Box component="form" onSubmit={submit} sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Correo electrónico"
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -63,7 +64,7 @@ const LoginPage = () => {
                             margin="normal"
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -80,7 +81,7 @@ const LoginPage = () => {
                             disabled={loading}
                             startIcon={loading && <CircularProgress size={20} />}
                         >
-                            {loading ? 'Signing in...' : 'Sign in'}
+                            {loading ? 'Entrando...' : 'Iniciar Sesión'}
                         </Button>
                     </Box>
                 </Grid>

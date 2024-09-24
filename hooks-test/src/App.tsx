@@ -12,7 +12,18 @@ import { DonacionesEspecieList, DonacionesEspecieCreate,
   DonacionesEspecieEdit } from './pages/DonacionesEspecie';
 
 const App = () => {
-  const role = localStorage.getItem('role');  // Obtener el rol del usuario
+  const [role, setRole] = React.useState<string | null>(null);
+  //const role = localStorage.getItem('role');  // Obtener el rol del usuario
+
+  // UseEffect para obtener el rol desde localStorage cuando el componente se monta
+  React.useEffect(() => {
+    const storedRole = localStorage.getItem('role');  // Obtener el rol del usuario
+    setRole(storedRole);  // Establecer el rol en el estado
+  }, []);  // Se ejecuta una vez cuando el componente se monta
+
+  if (!role) {
+    return <div>Loading...</div>;  // Mientras se carga el rol, mostrar un mensaje de carga
+  }
 
   return (
     <Admin
