@@ -38,7 +38,14 @@ const LoginPage = () => {
     };
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth={false}
+        sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            paddingBottom: 30,
+        }}>
             <Paper elevation={3} sx={{ padding: 4, mt: 8 }}>
                 <Grid container direction="column" alignItems="center">
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
