@@ -1,8 +1,8 @@
 import { fetchUtils, DataProvider, CreateResult, RaRecord, Identifier, DeleteManyParams, DeleteManyResult, GetManyParams, GetManyReferenceParams, GetManyReferenceResult, GetManyResult, QueryFunctionContext, UpdateManyParams, UpdateManyResult } from 'react-admin';
 import { stringify } from 'query-string';
 
-//const apiUrl = 'https://localhost:4000';  // URL del backend
-const apiUrl = 'https://sanders-crm-5.vercel.app/';
+const apiUrl = 'https://localhost:4000';  // URL del backend
+
 
 // Cliente HTTP personalizado que añade el token a las solicitudes
 const httpClient = (url: string, options: any = {}) => {
