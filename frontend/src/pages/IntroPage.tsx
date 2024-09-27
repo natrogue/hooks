@@ -9,6 +9,10 @@ const IntroPage = () => {
     navigate('/login'); // Redirige a la página de login
   };
 
+  const handleRegisterRedirect = () => {
+    navigate('/register'); // Redirige a la página de registro
+  };
+
   return (
     <Box
       sx={{
@@ -27,8 +31,16 @@ const IntroPage = () => {
       <Typography variant="body1" paragraph>
         Estamos comprometidos con nuestra comunidad. Conoce más sobre lo que hacemos.
       </Typography>
-      <Button variant="contained" color="primary" onClick={handleLoginRedirect}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleLoginRedirect}
+        sx={{ mb: 2 }} // Espacio entre los botones
+      >
         Ir a Login
+      </Button>
+      <Button variant="outlined" color="secondary" onClick={handleRegisterRedirect}>
+        Registrarse
       </Button>
     </Box>
   );

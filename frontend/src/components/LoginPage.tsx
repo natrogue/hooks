@@ -17,14 +17,19 @@ const LoginPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await login({ email, password });
+            const response = await login({ email, password });
 
-            const auth = JSON.parse(localStorage.getItem('auth') || '{}');
-            const userRole = auth.role;
+            // Suponiendo que la respuesta del login incluye el token y el rol
+            const { token, role } = response;  // Ajusta esta parte según la estructura de tu backend
 
-            if (userRole === 'admin') {
+            // Guardar token y rol en localStorage
+            localStorage.setItem('token', token);
+            localStorage.setItem('role', role);
+
+            // Redirigir según el rol del usuario
+            if (role === 'admin') {
                 navigate('/admin-dashboard');
-            } else if (userRole === 'user') {
+            } else if (role === 'user') {
                 navigate('/user-dashboard');
             } else {
                 navigate('/');
@@ -32,7 +37,7 @@ const LoginPage = () => {
 
             setLoading(false);
         } catch (error) {
-            notify('Email o password incorrecto');
+            notify('Email o password incorrecto', { type: 'error' });
             setLoading(false);
         }
     };

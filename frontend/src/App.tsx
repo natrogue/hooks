@@ -6,7 +6,7 @@ import Dashboard from './components/Dashboard';
 import LoginPage from './components/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';  
 import UserDashboard from './pages/UserDashboard';    
-import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';             
+import { Route } from 'react-router-dom';             
 import { DonacionesLineaList, DonacionesLineaEdit } from './pages/DonacionesLinea';
 import { DonacionesEspecieList, DonacionesEspecieCreate, DonacionesEspecieEdit } from './pages/DonacionesEspecie';
 import EstadisticasDonaciones from './pages/EstadisticasDonaciones';
@@ -27,71 +27,56 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Ruta de la página de introducción */}
+    <Admin
+      authProvider={authProvider}
+      dataProvider={dataProvider}
+      dashboard={Dashboard}  // Usar Dashboard para manejar la redirección
+      loginPage={LoginPage}  // Página de login
+    >
+      <CustomRoutes>
+        {/* Ruta de la página de introducción, siempre accesible */}
         <Route path="/" element={<IntroPage />} />  
 
-        {/* Ruta de login */}
+        {/* Ruta para el login */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* Ruta condicional para el Admin solo si el usuario está autenticado */}
-        <Route 
-          path="/admin/*" 
-          element={
-            role === 'admin' ? (
-              <Admin
-                authProvider={authProvider}
-                dataProvider={dataProvider}
-                dashboard={Dashboard}
-              >
-                <CustomRoutes>
-                  <Route path="/admin-dashboard" element={<AdminDashboard />} />  
-                </CustomRoutes>
+        {/* Rutas personalizadas para admin y user */}
+        {role === 'admin' && (
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />  
+        )}
+        {role === 'user' && (
+          <Route path="/user-dashboard" element={<UserDashboard />} />    
+        )}
+      </CustomRoutes>
 
-                <Resource 
-                  name="donaciones-linea"
-                  list={DonacionesLineaList}
-                  edit={DonacionesLineaEdit}
-                />
-                <Resource 
-                  name="donaciones-especie"
-                  list={DonacionesEspecieList}
-                  create={DonacionesEspecieCreate}
-                  edit={DonacionesEspecieEdit}
-                />
-                <Resource 
-                  name="estadisticas-donaciones"
-                  list={EstadisticasDonaciones}
-                />
-              </Admin>
-            ) : (
-              <Navigate to="/login" />
-            )
-          } 
-        />
-
-        {/* Ruta condicional para el usuario común */}
-        <Route 
-          path="/user/*" 
-          element={
-            role === 'user' ? (
-              <Admin
-                authProvider={authProvider}
-                dataProvider={dataProvider}
-                dashboard={UserDashboard} // Para redirigir al user dashboard
-              >
-                <CustomRoutes>
-                  <Route path="/user-dashboard" element={<UserDashboard />} />    
-                </CustomRoutes>
-              </Admin>
-            ) : (
-              <Navigate to="/login" />
-            )
-          } 
-        />
-      </Routes>
-    </BrowserRouter>
+      {/* Recursos del CRM solo para admin */}
+      {role === 'admin' && (
+        <>
+          <Resource 
+            name="donaciones-linea"
+            list={DonacionesLineaList}
+            edit={DonacionesLineaEdit}
+          />
+          <Resource 
+            name="donaciones-especie"
+            list={DonacionesEspecieList}
+            create={DonacionesEspecieCreate}
+            edit={DonacionesEspecieEdit}
+          />
+          <Resource 
+            name="estadisticas-donaciones"
+            list={EstadisticasDonaciones}
+          />
+        </>
+      )}
+      
+      {/* Recursos o componentes adicionales solo para usuarios regulares */}
+      {role === 'user' && (
+        <>
+          {/* Aquí puedes agregar recursos o componentes que sólo quieras que vean los usuarios */}
+        </>
+      )}
+    </Admin>
   );
 };
 
