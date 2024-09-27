@@ -17,27 +17,35 @@ const LoginPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await login({ email, password });
-
-            // Suponiendo que la respuesta del login incluye el token y el rol
-            const { token, role } = response;  // Ajusta esta parte según la estructura de tu backend
-
-            // Guardar token y rol en localStorage
-            localStorage.setItem('token', token);
-            localStorage.setItem('role', role);
-
+            // Intentar iniciar sesión
+            await login({ email, password });
+    
+            // Verifica si localStorage tiene 'auth' y si el rol es válido
+            const auth = localStorage.getItem('auth');
+            if (!auth) {
+                throw new Error("No se encontró la información de autenticación");
+            }
+    
+            const parsedAuth = JSON.parse(auth);
+            const userRole = parsedAuth.role;
+    
             // Redirigir según el rol del usuario
-            if (role === 'admin') {
+            if (userRole === 'admin') {
                 navigate('/admin-dashboard');
-            } else if (role === 'user') {
+            } else if (userRole === 'user') {
                 navigate('/user-dashboard');
             } else {
-                navigate('/');
+                throw new Error("Rol desconocido");
             }
-
+    
             setLoading(false);
         } catch (error) {
-            notify('Email o password incorrecto', { type: 'error' });
+            // Solo si ocurre un error real, mostrar notificación
+            if (error instanceof Error) {
+                notify(error.message || 'Email o password incorrecto');
+            } else {
+                notify('Email o password incorrecto');
+            }
             setLoading(false);
         }
     };

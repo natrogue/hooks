@@ -1,3 +1,4 @@
+
 const https = require('https'); // Para crear un servidor HTTPS
 const fs = require('fs'); // Maneja archivos del sistema
 
@@ -35,36 +36,6 @@ mongoose.connect('mongodb://localhost:27017/crmDummy', {
     console.log('Conectado a la base de datos MongoDB');
 }).catch((err) => {
     console.error('Error al conectar a MongoDB', err);
-});
-
-// Ruta de registro
-app.post('/register', async (req, res) => {
-    const { email, password, role = 'user' } = req.body; // Recibe el email, contraseña y rol (por defecto 'user')
-
-    try {
-        // Verifica si el usuario ya existe
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'El usuario ya existe' });
-        }
-
-        // Hashea la contraseña usando bcrypt
-        const hashedPassword = await bcrypt.hash(password, 10);  // 10 es el número de rondas de salt
-
-        // Crea un nuevo usuario
-        const newUser = new User({
-            email,
-            password: hashedPassword,
-            role
-        });
-
-        // Guarda el usuario en la base de datos
-        await newUser.save();
-        res.status(201).json({ message: 'Usuario registrado exitosamente' });
-    } catch (error) {
-        console.error('Error al registrar el usuario:', error.message);
-        res.status(500).json({ message: 'Error en el servidor' });
-    }
 });
 
 // Login route
@@ -289,4 +260,3 @@ const credentials = { key: privateKey, cert: certificate, ca: ca };
 //Servidor HTTPS
 const httpsServer = https.createServer(credentials, app);
 httpsServer.listen(PORT, () => console.log(`Server running on port ${PORT} with HTTPS`));
-

@@ -7,13 +7,14 @@ import LoginPage from './components/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';  
 import UserDashboard from './pages/UserDashboard';    
 import { Route } from 'react-router-dom';             
-import { DonacionesLineaList, DonacionesLineaEdit } from './pages/DonacionesLinea';
-import { DonacionesEspecieList, DonacionesEspecieCreate, DonacionesEspecieEdit } from './pages/DonacionesEspecie';
+import { DonacionesLineaList, DonacionesLineaCreate, DonacionesLineaEdit } from './pages/DonacionesLinea';
+import { DonacionesEspecieList, DonacionesEspecieCreate,
+  DonacionesEspecieEdit } from './pages/DonacionesEspecie';
 import EstadisticasDonaciones from './pages/EstadisticasDonaciones';
-import IntroPage from './pages/IntroPage';  // Importa la nueva página de introducción
 
 const App = () => {
   const [role, setRole] = React.useState<string | null>(null);
+  //const role = localStorage.getItem('role');  // Obtener el rol del usuario
 
   // UseEffect para obtener el rol desde localStorage cuando el componente se monta
   React.useEffect(() => {
@@ -21,9 +22,8 @@ const App = () => {
     setRole(storedRole);  // Establecer el rol en el estado
   }, []);  // Se ejecuta una vez cuando el componente se monta
 
-  // Mostrar un mensaje de carga mientras el rol se está obteniendo
   if (!role) {
-    return <div>Loading...</div>;  
+    return <div>Loading...</div>;  // Mientras se carga el rol, mostrar un mensaje de carga
   }
 
   return (
@@ -34,19 +34,9 @@ const App = () => {
       loginPage={LoginPage}  // Página de login
     >
       <CustomRoutes>
-        {/* Ruta de la página de introducción, siempre accesible */}
-        <Route path="/" element={<IntroPage />} />  
-
-        {/* Ruta para el login */}
-        <Route path="/login" element={<LoginPage />} />
-
         {/* Rutas personalizadas para admin y user */}
-        {role === 'admin' && (
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />  
-        )}
-        {role === 'user' && (
-          <Route path="/user-dashboard" element={<UserDashboard />} />    
-        )}
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />  
+        <Route path="/user-dashboard" element={<UserDashboard />} />    
       </CustomRoutes>
 
       {/* Recursos del CRM solo para admin */}
@@ -55,6 +45,7 @@ const App = () => {
           <Resource 
             name="donaciones-linea"
             list={DonacionesLineaList}
+            //create={DonacionesLineaCreate}
             edit={DonacionesLineaEdit}
           />
           <Resource 
@@ -69,13 +60,12 @@ const App = () => {
           />
         </>
       )}
-      
-      {/* Recursos o componentes adicionales solo para usuarios regulares */}
       {role === 'user' && (
-        <>
-          {/* Aquí puedes agregar recursos o componentes que sólo quieras que vean los usuarios */}
-        </>
-      )}
+      <>
+        {/* Aquí puedes agregar recursos o componentes que sólo quieras que vean los usuarios */}
+        <Route path="/user-dashboard" element={<UserDashboard />} />    
+      </>
+    )}
     </Admin>
   );
 };
