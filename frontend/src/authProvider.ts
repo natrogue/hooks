@@ -1,7 +1,7 @@
 const authProvider = {
     // Called when the user attempts to log in
     login: async ({ email, password }: { email: string, password: string }) => {
-        const request = new Request('https://localhost:4000/login', {
+        const request = new Request('https://localhost:5001/login', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -16,6 +16,8 @@ const authProvider = {
         localStorage.setItem('token', token);  // Almacenar el token JWT
         localStorage.setItem('role', role);  // Almacenar el rol del usuario
     },
+
+
     
     // Called when the user clicks on the logout button
     logout: () => {

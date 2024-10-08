@@ -22,9 +22,9 @@ const App = () => {
     setRole(storedRole);  // Establecer el rol en el estado
   }, []);  // Se ejecuta una vez cuando el componente se monta
 
-  if (!role) {
-    return <div>Loading...</div>;  // Mientras se carga el rol, mostrar un mensaje de carga
-  }
+  // if (!role) {
+  //  return <div>Loading...</div>;  // Mientras se carga el rol, mostrar un mensaje de carga
+  // }
 
   return (
     <Admin

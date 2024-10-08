@@ -16,7 +16,7 @@ const JWT_SECRET = 'mysecretkey';
 
 
 const app = express();
-const PORT = 4000;
+const PORT = 5001;
 
 // Middlewares
 //app.use(cors());
@@ -110,6 +110,11 @@ const donacionEspecieSchema = new mongoose.Schema({
 
 // Crear el modelo de Mongoose a partir del esquema de Donaciones en Especie
 const DonacionEspecie = mongoose.model('DonacionEspecie', donacionEspecieSchema);
+
+
+ //app.get('/', async (req, res)  => {
+ //    res.send('Hello World');
+ //});
 
 // Rutas para Donaciones en Línea (solo admin)
 app.get('/donaciones-linea', async (req, res) => {

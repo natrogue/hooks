@@ -41,8 +41,8 @@ async function registerUser(email, password, role = 'user') {
 }
 
 // Usage: call the function with the user's email and password
-const email = 'natrogue@example.com';  // Replace with actual email
-const password = 'natalia';   // Replace with actual password
+const email = 'nik@example.com';  // Replace with actual email
+const password = 'nikolee';   // Replace with actual password
 const role = 'admin';              // Replace with 'user' or 'admin'
 
 registerUser(email, password, role);
